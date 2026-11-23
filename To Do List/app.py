@@ -1,9 +1,19 @@
 from flask import Flask,render_template,request,jsonify
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
-DB_CONFIG = {"host":"localhost","user":"root","password":"shri","port":3306}
+DB_CONFIG = {
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "port": 4000,
+    "database": "todo_list",
+    "ssl_ca": os.path.join(os.path.dirname(__file__), "ca.pem"),
+    "ssl_verify_cert": True
+}
+
 connection = None
 cursor = None
 
